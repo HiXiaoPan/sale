@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper SYSTEM "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.atguigu.b2c.dao.T_MALL_CLASS_2_DAO">
+ 	<select id="selectClass2ByClass1id" resultType="t_MALL_CLASS_2">
+ 		select * from T_MALL_CLASS_2 where flbh1=#{id}
+ 	</select>
+</mapper>

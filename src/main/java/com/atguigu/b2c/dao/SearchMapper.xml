@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper SYSTEM "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.atguigu.b2c.dao.SearchDao">
+
+	 <select id="select_sku_shp_tm_by_fl2id_attrids_attrValueids" resultMap="select_sku_shp_tm_by_fl2id_attrids_attrValueids">
+	SELECT a.*,b.shp_mch,b.shp_tp,b.shp_msh,d.ppmch,d.url,a.`id` AS t_sku_id,b.`id` AS t_shp_id,d.`id`AS t_tm_id
+	FROM t_mall_sku a , t_mall_product b , t_mall_tm_class c
+	,t_mall_trade_mark d,
+	t_mall_sku_attr_value e
+	WHERE a.`shp_id`=b.`id` AND b.`pp_id`=c.`pp_id` AND b.`flbh1`=c.`flbh1` AND
+	c.`pp_id`=d.`id`
+	AND a.`id`=e.`sku_id` AND b.`flbh2`=#{class_2_id}
+	<if test="shxzh_id!=null and shxzh_id!=0">
+		and e.shxzh_id = #{shxzh_id}
+	</if>
+	<if test="attr_value_sql!=null and attr_value_sql!=''">
+		${attr_value_sql}
+	</if>
+	<if test="sql!=null and sql!=''">
+		${sql}
+	</if>
+	</select>
+	<resultMap type="com.atguigu.b2c.bean.UNION_SKU_SHP_TM" id="select_sku_shp_tm_by_fl2id_attrids_attrValueids" autoMapping="true">
+		<result column="t_sku_id" property="id" />
+		<association property="product" autoMapping="true" javaType="com.atguigu.b2c.bean.T_MALL_PRODUCT">
+			<result column="t_shp_id" property="id" />
+		</association>
+		<association property="tm" autoMapping="true" javaType="com.atguigu.b2c.bean.T_MALL_TRADE_MARK">
+			<result column="t_tm_id" property="id" />
+		</association>
+	</resultMap> 
+	<select id="select_valueid_by_attrid" resultType="Integer">
+		select id from t_mall_value where shxm_id=#{shxm_id}
+	</select>
+</mapper>

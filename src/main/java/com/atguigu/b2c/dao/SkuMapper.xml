@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper SYSTEM "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.atguigu.b2c.dao.SkuDao">
+ 	<select id="get_product_by_ppid_flan2" resultType="com.atguigu.b2c.bean.T_MALL_PRODUCT">
+ 		select * from t_mall_product where pp_id=#{pp_id} and flbh2=#{flbh2} 
+ 	</select>
+ 	<insert id="add_sku" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+ 		insert into T_MALL_SKU (shp_id ,kc,jg,sku_mch,kcdz ) 
+ 		values(#{shp_id} ,#{kc},#{jg},#{sku_mch},#{kcdz})
+ 	</insert>
+ 	<insert id="add_skuAttrValue">
+ 		insert into T_MALL_SKU_ATTR_VALUE ( shxm_id , shxzh_id , shp_id  , sku_id )
+ 		values(#{shxm_id},#{shxzh_id},#{shp_id},#{sku_id});
+ 	</insert>
+</mapper>
